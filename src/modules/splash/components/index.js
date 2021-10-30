@@ -22,8 +22,8 @@ const SplashComponent = () => {
 
 	useEffect(() => {
 		changeInitializedAppData('INITIALIZED_APP_YES');
-
-		const token = getCookie('token');
+		const accessToken = getCookie('accessToken');
+		const refreshToken = getCookie('refreshToken');
 		const initialUrl = getCookie('initial_url');
 
 		if (authState.current) {
@@ -33,18 +33,24 @@ const SplashComponent = () => {
 			} else {
 				history.replace('/main/dashboard');
 			}
-		} else if (token) {
+		} else if (accessToken) {
 			httpRequest
 				.get({
-					url: `/current-user`,
-					token: token
+					url: `/auth/current`,
+					token: accessToken
 				})
 				.then((response) => {
 					if (!response.data.success) {
 						logout(history, authState.current, changeAuthData);
 						return;
 					}
-					changeAuthData(response.data.data);
+					changeAuthData({
+						tokens: {
+							accessToken,
+							refreshToken
+						},
+						user: response.data.data
+					});
 					if (initialUrl) {
 						removeCookie('initial_url');
 						history.replace(initialUrl);
@@ -65,8 +71,8 @@ const SplashComponent = () => {
 	}, []);
 
 	return (
-		<div className="">
-			<CustomImageComponent className="rounded-circle" src={config.LOGO_URL} alt="Loading..." />
+		<div className="flex h-screen">
+			<CustomImageComponent className="m-auto animate-spin rounded-full h-32 w-32" src={config.LOGO_URL} alt="Loading..." />
 		</div>
 	);
 };

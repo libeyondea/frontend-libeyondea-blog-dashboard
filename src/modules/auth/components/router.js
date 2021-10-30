@@ -16,7 +16,7 @@ const AuthRouter = [
 	},
 	{
 		path: '*',
-		component: () => <Redirect to={`/`} />
+		component: () => <Redirect to="/" />
 	}
 ];
 

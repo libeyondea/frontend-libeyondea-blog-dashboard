@@ -5,10 +5,8 @@ import AuthRouter from './router';
 
 const AuthComponent = () => {
 	return (
-		<div className="container-fluid">
-			<div className="row min-vh-100">
-				<div className="col-md-7 col-lg-5 mx-auto my-auto">{renderRoutes(AuthRouter)}</div>
-			</div>
+		<div className="flex-col md:flex-row justify-between flex items-start bg-gray-200 h-screen">
+			<div className="m-auto flex">{renderRoutes(AuthRouter)}</div>
 		</div>
 	);
 };

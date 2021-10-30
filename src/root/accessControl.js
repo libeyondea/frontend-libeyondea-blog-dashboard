@@ -10,12 +10,12 @@ const accessControl = {
 			return;
 		}
 
-		if (pathname.indexOf('/auth') > -1 && state.appAuth.current) {
+		if (pathname.indexOf('/auth') > -1 && state.authState.current) {
 			history.push(`/main/dashboard`);
 			return;
 		}
 
-		if (pathname.indexOf('/main') > -1 && !state.appAuth.current) {
+		if (pathname.indexOf('/main') > -1 && !state.authState.current) {
 			history.push(`/auth/signin`);
 			return;
 		}

@@ -3,12 +3,15 @@ import { removeCookie } from './cookies';
 
 export function logout(history, auth, changeAuthData) {
 	if (auth) {
-		httpRequest.get({
-			url: '/logout',
-			token: auth.token.access_token
+		httpRequest.post({
+			url: '/auth/logout',
+			data: {
+				refreshToken: auth.tokens.refreshToken
+			}
 		});
 	}
-	removeCookie('token');
+	removeCookie('accessToken');
+	removeCookie('refreshToken');
 	changeAuthData(null);
 	history.push('/auth/signin');
 }

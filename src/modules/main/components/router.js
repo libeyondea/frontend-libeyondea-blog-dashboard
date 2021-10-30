@@ -16,7 +16,7 @@ const MainRouter = [
 	},
 	{
 		path: '*',
-		component: () => <Redirect to={`/`} />
+		component: () => <Redirect to="/" />
 	}
 ];
 

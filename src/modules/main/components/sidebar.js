@@ -1,10 +1,14 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useCallback } from 'react';
 import CustomLinkComponent from 'common/components/CustomLink/components';
 import { useLocation } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
 import { ChartPieIcon } from '@heroicons/react/outline';
 import { ChevronLeftIcon } from '@heroicons/react/solid';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSidebarApp } from 'store/app/actions';
+import CustomImageComponent from 'common/components/CustomImage/components';
+import config from 'config';
 
 const menus = [
 	{
@@ -33,21 +37,35 @@ const menus = [
 	}
 ];
 
-const SidebarComponent = ({ wrapperRef, className }) => {
+const SidebarComponent = () => {
+	const appState = useSelector((state) => state.appState);
 	const location = useLocation();
+	const dispatch = useDispatch();
+	const changeSidebarAppData = useCallback((newSidebarApp) => dispatch(changeSidebarApp(newSidebarApp)), [dispatch]);
 
 	return (
-		<div
-			className={classNames('fixed inset-y-0 left-0 max-w-full flex z-40 transition-all ease-in-out duration-500', {
-				[className]: className
-			})}
-			ref={wrapperRef}
-		>
-			<div className="flex flex-shrink-0 shadow-xl">
+		<div className="flex">
+			<div
+				className={classNames('fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden', {
+					hidden: appState.sidebar,
+					block: !appState.sidebar
+				})}
+				onClick={() => changeSidebarAppData(true)}
+			></div>
+			<div
+				className={classNames(
+					'fixed inset-y-0 left-0 max-w-full flex transition-all ease-in-out duration-500 flex-shrink-0 z-30 shadow-xl',
+					{
+						'-ml-64 lg:ml-0': appState.sidebar,
+						'ml-0 lg:-ml-64': !appState.sidebar
+					}
+				)}
+			>
 				<div className="flex flex-col w-64 bg-gray-800">
-					<div className="bg-gray-800 flex flex-col flex-shrink-0 px-4 fixed w-64 z-50">
-						<CustomLinkComponent href="/" className="text-left focus:outline-none">
-							<h2 className="py-3 px-4 text-2xl font-medium tracking-tighter cursor-pointer text-gray-200">Libeyondea</h2>
+					<div className="bg-gray-800 flex flex-col flex-shrink-0 fixed w-64 z-50 py-3 px-8">
+						<CustomLinkComponent href="/" className="flex items-center text-left focus:outline-none">
+							<CustomImageComponent className="rounded-full h-9 w-9 mr-2" src={config.LOGO_URL} alt="Libeyondea" />
+							<h2 className="text-2xl font-medium tracking-tighter cursor-pointer text-gray-200">Libeyondea</h2>
 						</CustomLinkComponent>
 					</div>
 					<div className="flex flex-col overflow-y-auto p-4 mt-14">
@@ -66,7 +84,7 @@ const SidebarComponent = ({ wrapperRef, className }) => {
 													}
 												)}
 											>
-												<ChartPieIcon className="w-4 h-4" />
+												<ChartPieIcon className="w-5 h-5" />
 												<span className="ml-4">{m.title}</span>
 											</CustomLinkComponent>
 										</li>

@@ -10,7 +10,7 @@ import { changeAuth } from 'store/auth/actions';
 import { changeSidebarApp } from 'store/app/actions';
 import classNames from 'classnames';
 
-const NavbarComponent = ({ className }) => {
+const NavbarComponent = () => {
 	const dispatch = useDispatch();
 	const authState = useSelector((state) => state.authState);
 	const appState = useSelector((state) => state.appState);
@@ -21,8 +21,9 @@ const NavbarComponent = ({ className }) => {
 	return (
 		<>
 			<nav
-				className={classNames('bg-white shadow-lg fixed z-30 inset-x-0 top-0 transition-all ease-in-out duration-500', {
-					[className]: className
+				className={classNames('bg-white shadow-lg fixed z-20 inset-x-0 top-0 transition-all ease-in-out duration-500', {
+					'lg:ml-64': appState.sidebar,
+					'ml-0': !appState.sidebar
 				})}
 			>
 				<div className="xl:container mx-auto px-4">
@@ -53,8 +54,8 @@ const NavbarComponent = ({ className }) => {
 											<Menu.Button className="flex items-center justify-center w-full rounded-md px-2 py-1 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-500 focus:outline-none">
 												<CustomImageComponent
 													className="rounded-full h-8 w-8"
-													src="https://avatars.githubusercontent.com/u/57558120?v=4"
-													alt="Libeyondea"
+													src={authState.current.user.avatarUrl}
+													alt={authState.current.user.userName}
 												/>
 											</Menu.Button>
 										</div>
@@ -73,7 +74,7 @@ const NavbarComponent = ({ className }) => {
 														<CustomLinkComponent
 															href="/"
 															className={`block px-4 py-2 rounded-md text-md ${
-																active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+																active ? 'bg-gray-300 text-gray-700' : 'text-gray-900'
 															}`}
 														>
 															<span className="flex flex-col">
@@ -87,8 +88,9 @@ const NavbarComponent = ({ className }) => {
 														<CustomLinkComponent
 															href="/"
 															className={`block px-4 py-2 rounded-md text-md ${
-																active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+																active ? 'bg-gray-300 text-gray-700' : 'text-gray-900'
 															}`}
+															onClick={() => logout(history, authState.current, changeAuthData)}
 														>
 															<span className="flex flex-col">
 																<span>Logout</span>
