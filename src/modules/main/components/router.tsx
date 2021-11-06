@@ -18,7 +18,7 @@ const MainRouter = [
 	},
 	{
 		path: '*',
-		component: () => <Redirect to="/" />
+		component: () => <Redirect to={routeConstant.ROUTE_NAME_SPLASH} />
 	}
 ];
 

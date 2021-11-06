@@ -2,7 +2,7 @@ const config = {
 	APP_NAME: 'Libeyondea',
 	LOGO_URL: '/images/libeyondea.png',
 	LOGGER: {
-		REDUX: false
+		REDUX: true
 	},
 	API: {
 		URL: {

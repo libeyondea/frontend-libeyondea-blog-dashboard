@@ -61,6 +61,7 @@ const SplashComponent = () => {
 					}
 				})
 				.catch((error) => {
+					console.log(error);
 					logout(history, auth, authActionData);
 				});
 		} else {
