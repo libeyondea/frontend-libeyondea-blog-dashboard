@@ -1,15 +1,18 @@
-import * as actionTypes from './actionTypes';
+import { createAction } from '@reduxjs/toolkit';
 
-export const authAction = (current: any) => ({
-	type: actionTypes.AUTH_REQUESTED,
+export const actionTypes = {
+	AUTH_REQUEST: 'AUTH_REQUEST',
+	AUTH_SUCCESS: 'AUTH_SUCCESS'
+};
+
+export const authRequestAction = createAction(actionTypes.AUTH_REQUEST, (current: any) => ({
 	payload: {
 		current
 	}
-});
+}));
 
-export const authSucceedAction = (current: any) => ({
-	type: actionTypes.AUTH_SUCCEED,
+export const authSuccessAction = createAction(actionTypes.AUTH_SUCCESS, (current: any) => ({
 	payload: {
 		current
 	}
-});
+}));

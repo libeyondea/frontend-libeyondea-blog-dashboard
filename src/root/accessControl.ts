@@ -1,7 +1,7 @@
-import { setCookie } from 'common/helpers/cookies';
-import * as appStateConstant from 'common/constants/appState';
-import * as cookiesConstant from 'common/constants/cookies';
-import * as routeConstant from 'common/constants/route';
+import { setCookie } from 'helpers/cookies';
+import * as appStateConstant from 'constants/appState';
+import * as cookiesConstant from 'constants/cookies';
+import * as routeConstant from 'constants/route';
 
 export const checkRoute = (store: any, history: any, pathname: string) => {
 	const rootState = store.getState();

@@ -4,12 +4,12 @@ import CustomLinkComponent from 'common/components/CustomLink/components';
 import { useLocation } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
 import { ChartPieIcon, ChevronLeftIcon, TableIcon, CogIcon, TemplateIcon } from '@heroicons/react/outline';
-import { useDispatch, useSelector } from 'react-redux';
-import { appSidebarAction } from 'store/app/actions';
+import { appSidebarRequestAction } from 'store/app/actions';
 import CustomImageComponent from 'common/components/CustomImage/components';
 import config from 'config';
 import { selectAppSidebar } from 'store/app/selectors';
-import * as appStateConstant from 'common/constants/appState';
+import * as appStateConstant from 'constants/appState';
+import { useAppSelector, useAppDispatch } from 'helpers/hooks';
 
 const menus = [
 	{
@@ -45,10 +45,10 @@ const menus = [
 
 const SidebarComponent = () => {
 	const location = useLocation();
-	const dispatch = useDispatch();
-	const appSidebar = useSelector(selectAppSidebar);
+	const dispatch = useAppDispatch();
+	const appSidebar = useAppSelector(selectAppSidebar);
 
-	const appSidebarActionData = useCallback((state) => dispatch(appSidebarAction(state)), [dispatch]);
+	const appSidebarActionData = useCallback((state) => dispatch(appSidebarRequestAction(state)), [dispatch]);
 
 	return (
 		<div className="flex">

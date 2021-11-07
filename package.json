@@ -5,6 +5,7 @@
 	"dependencies": {
 		"@headlessui/react": "^1.4.1",
 		"@heroicons/react": "^1.0.5",
+		"@reduxjs/toolkit": "^1.6.2",
 		"@testing-library/jest-dom": "^5.14.1",
 		"@testing-library/react": "^12.1.2",
 		"@testing-library/user-event": "^13.5.0",
@@ -67,10 +68,8 @@
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.3.7",
-		"babel-plugin-root-import": "^6.6.0",
 		"postcss": "^8.3.11",
 		"prettier": "^2.3.2",
-		"redux-devtools-extension": "^2.13.9",
 		"tailwindcss": "^2.2.17"
 	}
 }

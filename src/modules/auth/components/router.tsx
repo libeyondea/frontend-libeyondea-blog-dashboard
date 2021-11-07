@@ -1,6 +1,6 @@
 import { Redirect } from 'react-router-dom';
 import { lazy } from 'react';
-import * as routeConstant from 'common/constants/route';
+import * as routeConstant from 'constants/route';
 
 const SigninCompoment = lazy(() => import('./signin/components'));
 const SignupComponent = lazy(() => import('./signup/components'));

@@ -1,7 +1,7 @@
-import { removeCookie } from 'common/helpers/cookies';
-import httpRequest from 'common/helpers/httpRequest';
-import * as cookiesConstant from 'common/constants/cookies';
-import * as routeConstant from 'common/constants/route';
+import { removeCookie } from 'helpers/cookies';
+import httpRequest from 'helpers/httpRequest';
+import * as cookiesConstant from 'constants/cookies';
+import * as routeConstant from 'constants/route';
 import config from 'config';
 
 export const logout = (history: any, auth: any, authActionData: any) => {

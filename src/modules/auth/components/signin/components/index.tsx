@@ -1,12 +1,12 @@
-import history from 'common/helpers/history';
-import httpRequest from 'common/helpers/httpRequest';
-import { setCookie } from 'common/helpers/cookies';
+import history from 'helpers/history';
+import httpRequest from 'helpers/httpRequest';
+import { setCookie } from 'helpers/cookies';
 import { useFormik } from 'formik';
 import { withRouter } from 'react-router-dom';
 import * as Yup from 'yup';
 import classNames from 'classnames';
 import CardComponent from 'common/components/Card/components';
-import * as cookiesConstant from 'common/constants/cookies';
+import * as cookiesConstant from 'constants/cookies';
 import config from 'config';
 
 const SigninCompoment: React.FC<any> = () => {

@@ -1,25 +1,25 @@
-import { logout } from 'common/helpers/auth';
-import history from 'common/helpers/history';
-import httpRequest from 'common/helpers/httpRequest';
-import { getCookie, removeCookie } from 'common/helpers/cookies';
+import { logout } from 'helpers/auth';
+import history from 'helpers/history';
+import httpRequest from 'helpers/httpRequest';
+import { getCookie, removeCookie } from 'helpers/cookies';
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { appInitializedAction } from 'store/app/actions';
-import { authAction } from 'store/auth/actions';
+import { appInitializedRequestAction } from 'store/app/actions';
+import { authRequestAction } from 'store/auth/actions';
 import CustomImageComponent from 'common/components/CustomImage/components';
 import config from 'config';
 import { selectAuth } from 'store/auth/selectors';
-import * as appStateConstant from 'common/constants/appState';
-import * as cookiesConstant from 'common/constants/cookies';
-import * as routeConstant from 'common/constants/route';
+import * as appStateConstant from 'constants/appState';
+import * as cookiesConstant from 'constants/cookies';
+import * as routeConstant from 'constants/route';
+import { useAppSelector, useAppDispatch } from 'helpers/hooks';
 
 const SplashComponent = () => {
-	const dispatch = useDispatch();
-	const auth = useSelector(selectAuth);
+	const dispatch = useAppDispatch();
+	const auth = useAppSelector(selectAuth);
 
-	const authActionData = useCallback((state) => dispatch(authAction(state)), [dispatch]);
-	const appInitializedActionData = useCallback((state) => dispatch(appInitializedAction(state)), [dispatch]);
+	const authActionData = useCallback((state) => dispatch(authRequestAction(state)), [dispatch]);
+	const appInitializedActionData = useCallback((state) => dispatch(appInitializedRequestAction(state)), [dispatch]);
 
 	useEffect(() => {
 		appInitializedActionData(appStateConstant.APP_STATE_INITIALIZED_YES);

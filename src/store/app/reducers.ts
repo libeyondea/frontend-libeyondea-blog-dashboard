@@ -1,31 +1,27 @@
-import * as appStateConstant from 'common/constants/appState';
-import * as actionTypes from './actionTypes';
+import * as appStateConstant from 'constants/appState';
+import { createReducer } from '@reduxjs/toolkit';
+import { appInitializedSuccessAction, appSidebarSuccessAction } from './actions';
 
-export interface AppState {
+interface AppState {
 	initialized: string;
 	sidebar: string;
 }
 
-export const initialState = {
+const initialState: AppState = {
 	initialized: appStateConstant.APP_STATE_INITIALIZED_NO,
 	sidebar: appStateConstant.APP_STATE_SIDEBAR_YES
 };
 
-export const appReducer = (state = initialState, action: any) => {
-	switch (action.type) {
-		case actionTypes.APP_INITIALIZED_SUCCEED:
-			return {
-				...state,
-				initialized: action.payload.initialized
-			};
-		case actionTypes.APP_SIDEBAR_SUCCEED:
-			return {
-				...state,
-				sidebar: action.payload.sidebar
-			};
-		default:
-			return {
-				...state
-			};
-	}
-};
+const appReducer = createReducer(initialState, (builder) => {
+	builder
+		.addCase(appInitializedSuccessAction, (state, action) => ({
+			...state,
+			initialized: action.payload.initialized
+		}))
+		.addCase(appSidebarSuccessAction, (state, action) => ({
+			...state,
+			sidebar: action.payload.sidebar
+		}));
+});
+
+export default appReducer;

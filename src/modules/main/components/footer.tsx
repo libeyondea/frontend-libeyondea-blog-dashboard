@@ -2,12 +2,12 @@ import moment from 'moment';
 import CustomImageComponent from 'common/components/CustomImage/components';
 import config from 'config';
 import classNames from 'classnames';
-import { useSelector } from 'react-redux';
 import { selectAppSidebar } from 'store/app/selectors';
-import * as appStateConstant from 'common/constants/appState';
+import * as appStateConstant from 'constants/appState';
+import { useAppSelector } from 'helpers/hooks';
 
 const FooterComponent = () => {
-	const appSidebar = useSelector(selectAppSidebar);
+	const appSidebar = useAppSelector(selectAppSidebar);
 
 	return (
 		<footer

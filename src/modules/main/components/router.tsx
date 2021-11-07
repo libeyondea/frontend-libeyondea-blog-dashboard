@@ -1,6 +1,6 @@
 import { Redirect } from 'react-router-dom';
 import PostComponent from './post/components';
-import * as routeConstant from 'common/constants/route';
+import * as routeConstant from 'constants/route';
 import { lazy } from 'react';
 
 const DashboardComponent = lazy(() => import('./dashboard/components'));

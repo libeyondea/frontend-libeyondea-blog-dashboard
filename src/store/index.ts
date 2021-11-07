@@ -1,41 +1,31 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-import * as authEpics from 'store/auth/epics';
-import { authReducer, AuthState } from 'store/auth/reducers';
-
-import * as appEpics from 'store/app/epics';
-import { appReducer, AppState } from 'store/app/reducers';
+import { createEpicMiddleware } from 'redux-observable';
 import config from 'config';
+import rootReducer from './root-reducer';
+import rootEpic from './root-epic';
+import { configureStore } from '@reduxjs/toolkit';
 
 const epicMiddleware = createEpicMiddleware();
 
-export interface RootState {
-	appState: AppState;
-	authState: AuthState;
-}
+const middlewares = [
+	createLogger({
+		predicate: () => config.LOGGER.REDUX
+	}),
+	epicMiddleware
+];
 
-const configureStore = () => {
-	const store = createStore(
-		combineReducers({
-			appState: appReducer,
-			authState: authReducer
-		}),
-		composeWithDevTools(
-			applyMiddleware(
-				createLogger({
-					predicate: () => config.LOGGER.REDUX
-				}),
-				epicMiddleware
-			)
-		)
-	);
+const preloadedState = {};
 
-	epicMiddleware.run(combineEpics(...Object.values(appEpics), ...Object.values(authEpics)));
+const store = configureStore({
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),
+	devTools: process.env.NODE_ENV !== 'production',
+	preloadedState
+});
 
-	return store;
-};
+epicMiddleware.run(rootEpic);
 
-export default configureStore;
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+
+export default store;

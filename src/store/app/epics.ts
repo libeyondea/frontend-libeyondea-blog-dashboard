@@ -1,16 +1,21 @@
+import { Observable } from 'rxjs';
+import { Action } from '@reduxjs/toolkit';
 import { filter, map } from 'rxjs/operators';
+import {
+	appInitializedRequestAction,
+	appInitializedSuccessAction,
+	appSidebarRequestAction,
+	appSidebarSuccessAction
+} from './actions';
 
-import { appInitializedSucceedAction, appSidebarSucceedAction } from './actions';
-import * as actionTypes from './actionTypes';
-
-export const appInitializedEpic = (action$: any) =>
+export const appInitializedEpic = (action$: Observable<Action>): Observable<Action> =>
 	action$.pipe(
-		filter((action: any) => action.type === actionTypes.APP_INITIALIZED_REQUESTED),
-		map((action: any) => appInitializedSucceedAction(action.payload.initialized))
+		filter(appInitializedRequestAction.match),
+		map((action) => appInitializedSuccessAction(action.payload.initialized))
 	);
 
-export const appSidebarEpic = (action$: any) =>
+export const appSidebarEpic = (action$: Observable<Action>): Observable<Action> =>
 	action$.pipe(
-		filter((action: any) => action.type === actionTypes.APP_SIDEBAR_REQUESTED),
-		map((action: any) => appSidebarSucceedAction(action.payload.sidebar))
+		filter(appSidebarRequestAction.match),
+		map((action: any) => appSidebarSuccessAction(action.payload.sidebar))
 	);

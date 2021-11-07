@@ -3,14 +3,14 @@ import NavbarComponent from './navbar';
 import SidebarComponent from './sidebar';
 import FooterComponent from './footer';
 import MainRouter from './router';
-import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { selectAppSidebar } from 'store/app/selectors';
-import * as appStateConstant from 'common/constants/appState';
+import * as appStateConstant from 'constants/appState';
 import { withRouter } from 'react-router';
+import { useAppSelector } from 'helpers/hooks';
 
 const MainComponent = () => {
-	const appSidebar = useSelector(selectAppSidebar);
+	const appSidebar = useAppSelector(selectAppSidebar);
 
 	return (
 		<div className="bg-gray-100">

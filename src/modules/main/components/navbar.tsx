@@ -3,23 +3,23 @@ import { Menu, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import CustomImageComponent from 'common/components/CustomImage/components';
 import CustomLinkComponent from 'common/components/CustomLink/components';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from 'common/helpers/auth';
-import history from 'common/helpers/history';
-import { authAction } from 'store/auth/actions';
-import { appSidebarAction } from 'store/app/actions';
+import { logout } from 'helpers/auth';
+import history from 'helpers/history';
+import { authRequestAction } from 'store/auth/actions';
+import { appSidebarRequestAction } from 'store/app/actions';
 import classNames from 'classnames';
 import { selectAppSidebar } from 'store/app/selectors';
 import { selectAuth } from 'store/auth/selectors';
-import * as appStateConstant from 'common/constants/appState';
+import * as appStateConstant from 'constants/appState';
+import { useAppSelector, useAppDispatch } from 'helpers/hooks';
 
 const NavbarComponent = () => {
-	const dispatch = useDispatch();
-	const appSidebar = useSelector(selectAppSidebar);
-	const auth = useSelector(selectAuth);
+	const dispatch = useAppDispatch();
+	const appSidebar = useAppSelector(selectAppSidebar);
+	const auth = useAppSelector(selectAuth);
 
-	const appSidebarActionData = useCallback((state) => dispatch(appSidebarAction(state)), [dispatch]);
-	const authActionData = useCallback((state) => dispatch(authAction(state)), [dispatch]);
+	const appSidebarActionData = useCallback((state) => dispatch(appSidebarRequestAction(state)), [dispatch]);
+	const authActionData = useCallback((state) => dispatch(authRequestAction(state)), [dispatch]);
 
 	const changeSidebar = () => {
 		appSidebarActionData(

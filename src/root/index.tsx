@@ -3,14 +3,13 @@ import { renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
 import { Suspense } from 'react';
 
-import configureStore from 'store';
-import history from 'common/helpers/history';
+import store from 'store';
+import history from 'helpers/history';
 import * as accessControl from './accessControl';
 import RootRouter from './router';
 import 'styles/index.css';
-import useDidMountEffect from 'common/hooks/useDidMountEffect';
+import { useDidMountEffect } from 'helpers/hooks';
 
-const store = configureStore();
 accessControl.checkRoute(store, history, history.location.pathname);
 
 const Root = () => {

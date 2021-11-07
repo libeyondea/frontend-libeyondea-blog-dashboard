@@ -2,7 +2,7 @@ import AuthComponent from 'modules/auth/components';
 import MainComponent from 'modules/main/components';
 import SplashComponent from 'modules/splash/components';
 import { Redirect } from 'react-router-dom';
-import * as routeConstant from 'common/constants/route';
+import * as routeConstant from 'constants/route';
 
 const RootRouter = [
 	{
