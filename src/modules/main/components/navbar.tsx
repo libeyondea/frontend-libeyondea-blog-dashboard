@@ -1,4 +1,4 @@
-import { useCallback, Fragment } from 'react';
+import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import CustomImageComponent from 'common/components/CustomImage/components';
@@ -18,8 +18,12 @@ const NavbarComponent = () => {
 	const appSidebar = useAppSelector(selectAppSidebar);
 	const auth = useAppSelector(selectAuth);
 
-	const appSidebarActionData = useCallback((state) => dispatch(appSidebarRequestAction(state)), [dispatch]);
-	const authActionData = useCallback((state) => dispatch(authRequestAction(state)), [dispatch]);
+	const appSidebarActionData = (state: any) => dispatch(appSidebarRequestAction(state));
+	const authActionData = (state: any) => dispatch(authRequestAction(state));
+
+	const logoutHandler = () => {
+		logout(history, auth, authActionData);
+	};
 
 	const changeSidebar = () => {
 		appSidebarActionData(
@@ -102,7 +106,7 @@ const NavbarComponent = () => {
 															'bg-gray-300 text-gray-700': active,
 															'text-gray-900': !active
 														})}
-														onClick={() => logout(history, auth, authActionData)}
+														onClick={logoutHandler}
 													>
 														<span className="flex flex-col">
 															<span>Logout</span>

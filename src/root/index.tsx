@@ -10,12 +10,12 @@ import RootRouter from './router';
 import 'styles/index.css';
 import { useDidMountEffect } from 'helpers/hooks';
 
-accessControl.checkRoute(store, history, history.location.pathname);
+accessControl.checkRoute(store.getState(), history, history.location.pathname);
 
 const Root = () => {
 	useDidMountEffect(() =>
 		history.listen((location) => {
-			accessControl.checkRoute(store, history, location.pathname);
+			accessControl.checkRoute(store.getState(), history, location.pathname);
 			window.scrollTo(0, 0);
 		})
 	);

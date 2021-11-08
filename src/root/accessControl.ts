@@ -2,9 +2,10 @@ import { setCookie } from 'helpers/cookies';
 import * as appStateConstant from 'constants/appState';
 import * as cookiesConstant from 'constants/cookies';
 import * as routeConstant from 'constants/route';
+import { History } from 'history';
+import { RootState } from 'store';
 
-export const checkRoute = (store: any, history: any, pathname: string) => {
-	const rootState = store.getState();
+export const checkRoute = (rootState: RootState, history: History, pathname: string) => {
 	if (
 		pathname !== routeConstant.ROUTE_NAME_SPLASH &&
 		rootState.appState.initialized !== appStateConstant.APP_STATE_INITIALIZED_YES

@@ -2,7 +2,7 @@ import { logout } from 'helpers/auth';
 import history from 'helpers/history';
 import httpRequest from 'helpers/httpRequest';
 import { getCookie, removeCookie } from 'helpers/cookies';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { appInitializedRequestAction } from 'store/app/actions';
 import { authRequestAction } from 'store/auth/actions';
@@ -18,8 +18,8 @@ const SplashComponent = () => {
 	const dispatch = useAppDispatch();
 	const auth = useAppSelector(selectAuth);
 
-	const authActionData = useCallback((state) => dispatch(authRequestAction(state)), [dispatch]);
-	const appInitializedActionData = useCallback((state) => dispatch(appInitializedRequestAction(state)), [dispatch]);
+	const appInitializedActionData = (state: any) => dispatch(appInitializedRequestAction(state));
+	const authActionData = (state: any) => dispatch(authRequestAction(state));
 
 	useEffect(() => {
 		appInitializedActionData(appStateConstant.APP_STATE_INITIALIZED_YES);

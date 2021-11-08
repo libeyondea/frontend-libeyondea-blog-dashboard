@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { useCallback } from 'react';
 import CustomLinkComponent from 'common/components/CustomLink/components';
 import { useLocation } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
@@ -48,7 +47,7 @@ const SidebarComponent = () => {
 	const dispatch = useAppDispatch();
 	const appSidebar = useAppSelector(selectAppSidebar);
 
-	const appSidebarActionData = useCallback((state) => dispatch(appSidebarRequestAction(state)), [dispatch]);
+	const appSidebarActionData = (state: any) => dispatch(appSidebarRequestAction(state));
 
 	return (
 		<div className="flex">
