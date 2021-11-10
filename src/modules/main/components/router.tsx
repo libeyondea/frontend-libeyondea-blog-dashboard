@@ -1,24 +1,21 @@
-import { Redirect } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 import PostComponent from './post/components';
 import * as routeConstant from 'constants/route';
-import { lazy } from 'react';
 
-const DashboardComponent = lazy(() => import('./dashboard/components'));
+import DashboardComponent from './dashboard/components';
 
-const MainRouter = [
+const MainRouter: RouteObject[] = [
 	{
-		path: `/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`,
-		exact: true,
-		component: DashboardComponent
+		path: `${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`,
+		element: <DashboardComponent />
 	},
 	{
-		path: `/${routeConstant.ROUTE_NAME_MAIN}/posts`,
-		exact: true,
-		component: PostComponent
+		path: `posts`,
+		element: <PostComponent />
 	},
 	{
 		path: '*',
-		component: () => <Redirect to={routeConstant.ROUTE_NAME_SPLASH} />
+		element: <Navigate to={`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`} />
 	}
 ];
 

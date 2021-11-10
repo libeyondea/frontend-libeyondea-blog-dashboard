@@ -1,4 +1,3 @@
-import { renderRoutes } from 'react-router-config';
 import NavbarComponent from './navbar';
 import SidebarComponent from './sidebar';
 import FooterComponent from './footer';
@@ -6,8 +5,8 @@ import MainRouter from './router';
 import classNames from 'classnames';
 import { selectAppSidebar } from 'store/app/selectors';
 import * as appStateConstant from 'constants/appState';
-import { withRouter } from 'react-router';
-import { useAppSelector } from 'helpers/hooks';
+import useAppSelector from 'hooks/useAppSelector';
+import { useRoutes } from 'react-router-dom';
 
 const MainComponent = () => {
 	const appSidebar = useAppSelector(selectAppSidebar);
@@ -22,11 +21,11 @@ const MainComponent = () => {
 					'ml-0': appSidebar === appStateConstant.APP_STATE_SIDEBAR_NO
 				})}
 			>
-				<div className="xl:container mx-auto p-4">{renderRoutes(MainRouter)}</div>
+				<div className="xl:container mx-auto p-4">{useRoutes(MainRouter)}</div>
 			</div>
 			<FooterComponent />
 		</div>
 	);
 };
 
-export default withRouter(MainComponent);
+export default MainComponent;

@@ -1,15 +1,16 @@
-import history from 'helpers/history';
 import httpRequest from 'helpers/httpRequest';
 import { setCookie } from 'helpers/cookies';
 import { useFormik } from 'formik';
-import { withRouter } from 'react-router-dom';
 import * as Yup from 'yup';
 import classNames from 'classnames';
 import CardComponent from 'common/components/Card/components';
 import * as cookiesConstant from 'constants/cookies';
 import config from 'config';
+import { useNavigate } from 'react-router-dom';
 
 const SigninCompoment: React.FC<any> = () => {
+	const navigate = useNavigate();
+
 	const formik = useFormik({
 		initialValues: {
 			userName: '',
@@ -36,9 +37,7 @@ const SigninCompoment: React.FC<any> = () => {
 						setCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN, response.data.data.tokens.refreshToken.token, {
 							expires: config.AUTH_DATA.EXPIRED_TIME
 						});
-						setTimeout(() => {
-							history.push('/');
-						}, 0);
+						navigate('/');
 					}
 				})
 				.catch((error) => {
@@ -152,4 +151,4 @@ const SigninCompoment: React.FC<any> = () => {
 	);
 };
 
-export default withRouter(SigninCompoment);
+export default SigninCompoment;

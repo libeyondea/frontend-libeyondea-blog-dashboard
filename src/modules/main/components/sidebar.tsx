@@ -8,7 +8,8 @@ import CustomImageComponent from 'common/components/CustomImage/components';
 import config from 'config';
 import { selectAppSidebar } from 'store/app/selectors';
 import * as appStateConstant from 'constants/appState';
-import { useAppSelector, useAppDispatch } from 'helpers/hooks';
+import useAppDispatch from 'hooks/useAppDispatch';
+import useAppSelector from 'hooks/useAppSelector';
 
 const menus = [
 	{

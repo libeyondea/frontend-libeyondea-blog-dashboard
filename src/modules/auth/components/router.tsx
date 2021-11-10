@@ -1,24 +1,20 @@
-import { Redirect } from 'react-router-dom';
-import { lazy } from 'react';
+import { Navigate, RouteObject } from 'react-router-dom';
 import * as routeConstant from 'constants/route';
+import SigninCompoment from './signin/components';
+import SignupComponent from './signup/components';
 
-const SigninCompoment = lazy(() => import('./signin/components'));
-const SignupComponent = lazy(() => import('./signup/components'));
-
-const AuthRouter = [
+const AuthRouter: RouteObject[] = [
 	{
-		path: `/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`,
-		exact: true,
-		component: SigninCompoment
+		path: `${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`,
+		element: <SigninCompoment />
 	},
 	{
-		path: `/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNUP}`,
-		exact: true,
-		component: SignupComponent
+		path: `${routeConstant.ROUTE_NAME_AUTH_SIGNUP}`,
+		element: <SignupComponent />
 	},
 	{
 		path: '*',
-		component: () => <Redirect to={routeConstant.ROUTE_NAME_SPLASH} />
+		element: <Navigate to={`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`} />
 	}
 ];
 

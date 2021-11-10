@@ -1,6 +1,5 @@
 import BreadcrumbComponent from 'common/components/Breadcrumb/components';
 import CardComponent from 'common/components/Card/components';
-import { withRouter } from 'react-router';
 
 const DashboardComponent = () => {
 	return (
@@ -21,4 +20,4 @@ const DashboardComponent = () => {
 	);
 };
 
-export default withRouter(DashboardComponent);
+export default DashboardComponent;

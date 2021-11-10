@@ -3,26 +3,27 @@ import { Menu, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import CustomImageComponent from 'common/components/CustomImage/components';
 import CustomLinkComponent from 'common/components/CustomLink/components';
-import { logout } from 'helpers/auth';
-import history from 'helpers/history';
+import { signout } from 'helpers/auth';
 import { authRequestAction } from 'store/auth/actions';
 import { appSidebarRequestAction } from 'store/app/actions';
 import classNames from 'classnames';
 import { selectAppSidebar } from 'store/app/selectors';
 import { selectAuth } from 'store/auth/selectors';
 import * as appStateConstant from 'constants/appState';
-import { useAppSelector, useAppDispatch } from 'helpers/hooks';
+import useAppDispatch from 'hooks/useAppDispatch';
+import useAppSelector from 'hooks/useAppSelector';
+import { useNavigate } from 'react-router-dom';
 
 const NavbarComponent = () => {
 	const dispatch = useAppDispatch();
 	const appSidebar = useAppSelector(selectAppSidebar);
 	const auth = useAppSelector(selectAuth);
-
+	const navigate = useNavigate();
 	const appSidebarActionData = (state: any) => dispatch(appSidebarRequestAction(state));
 	const authActionData = (state: any) => dispatch(authRequestAction(state));
 
 	const logoutHandler = () => {
-		logout(history, auth, authActionData);
+		signout(navigate, auth, authActionData);
 	};
 
 	const changeSidebar = () => {
@@ -92,26 +93,25 @@ const NavbarComponent = () => {
 															'text-gray-900': !active
 														})}
 													>
-														<span className="flex flex-col">
-															<span>Settings</span>
-														</span>
+														<span>Settings</span>
 													</CustomLinkComponent>
 												)}
 											</Menu.Item>
 											<Menu.Item>
 												{({ active }) => (
-													<CustomLinkComponent
-														href="/"
-														className={classNames('block px-4 py-2 rounded-md text-md', {
-															'bg-gray-300 text-gray-700': active,
-															'text-gray-900': !active
-														})}
+													<button
+														type="button"
+														className={classNames(
+															'block px-4 py-2 rounded-md text-left text-md w-full',
+															{
+																'bg-gray-300 text-gray-700': active,
+																'text-gray-900': !active
+															}
+														)}
 														onClick={logoutHandler}
 													>
-														<span className="flex flex-col">
-															<span>Logout</span>
-														</span>
-													</CustomLinkComponent>
+														<span>Logout</span>
+													</button>
 												)}
 											</Menu.Item>
 										</Menu.Items>

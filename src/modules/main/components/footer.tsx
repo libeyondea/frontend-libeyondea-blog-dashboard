@@ -4,7 +4,7 @@ import config from 'config';
 import classNames from 'classnames';
 import { selectAppSidebar } from 'store/app/selectors';
 import * as appStateConstant from 'constants/appState';
-import { useAppSelector } from 'helpers/hooks';
+import useAppSelector from 'hooks/useAppSelector';
 
 const FooterComponent = () => {
 	const appSidebar = useAppSelector(selectAppSidebar);
