@@ -1,7 +1,7 @@
 import { signout } from 'helpers/auth';
 import httpRequest from 'helpers/httpRequest';
 import { getCookie } from 'helpers/cookies';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { authRequestAction } from 'store/auth/actions';
 import CustomImageComponent from 'common/components/CustomImage/components';
 import config from 'config';
@@ -11,7 +11,6 @@ import * as routeConstant from 'constants/route';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
-import useDidUpdateEffect from 'hooks/useDidUpdateEffect';
 import useDidMountEffect from 'hooks/useDidMountEffect';
 
 const CheckAuthComponent = ({ children }: { children: JSX.Element }) => {
@@ -24,6 +23,7 @@ const CheckAuthComponent = ({ children }: { children: JSX.Element }) => {
 	const authActionData = (state: any) => dispatch(authRequestAction(state));
 
 	useDidMountEffect(() => {
+		console.log('DidMount');
 		const accessToken = getCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN);
 		const refreshToken = getCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN);
 		const initialUrl = location.pathname;
@@ -70,18 +70,23 @@ const CheckAuthComponent = ({ children }: { children: JSX.Element }) => {
 				});
 		} else {
 			authActionData(null);
-			navigate(`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`, { replace: true });
+			if (initialUrl) {
+				navigate(initialUrl, { replace: true });
+			} else {
+				navigate(`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`, { replace: true });
+			}
 			setIsLoading(false);
 		}
 	});
 
-	useDidUpdateEffect(() => {
+	useEffect(() => {
+		console.log('DidMountAndUpdate');
 		if (location.pathname.indexOf(routeConstant.ROUTE_NAME_AUTH) > -1 && auth) {
 			navigate(`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`, { replace: true });
 		} else if (location.pathname.indexOf(routeConstant.ROUTE_NAME_MAIN) > -1 && !auth) {
 			navigate(`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`);
 		}
-	}, [location]);
+	});
 
 	return isLoading ? (
 		<div className="flex h-screen">

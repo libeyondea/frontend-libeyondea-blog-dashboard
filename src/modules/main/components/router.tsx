@@ -1,17 +1,26 @@
 import { Navigate, RouteObject } from 'react-router-dom';
-import PostComponent from './post/components';
 import * as routeConstant from 'constants/route';
+import { lazy, Suspense } from 'react';
 
-import DashboardComponent from './dashboard/components';
+const DashboardComponent = lazy(() => import('./dashboard/components'));
+const PostComponent = lazy(() => import('./post/components'));
 
 const MainRouter: RouteObject[] = [
 	{
 		path: `${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`,
-		element: <DashboardComponent />
+		element: (
+			<Suspense fallback={null}>
+				<DashboardComponent />
+			</Suspense>
+		)
 	},
 	{
 		path: `posts`,
-		element: <PostComponent />
+		element: (
+			<Suspense fallback={null}>
+				<PostComponent />
+			</Suspense>
+		)
 	},
 	{
 		path: '*',

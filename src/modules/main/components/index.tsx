@@ -10,7 +10,7 @@ import { useRoutes } from 'react-router-dom';
 
 const MainComponent = () => {
 	const appSidebar = useAppSelector(selectAppSidebar);
-
+	console.log('Main');
 	return (
 		<div className="bg-gray-100">
 			<NavbarComponent />

@@ -1,24 +1,30 @@
-import AuthComponent from 'modules/auth/components';
-import MainComponent from 'modules/main/components';
 import { Navigate, RouteObject } from 'react-router-dom';
 import * as routeConstant from 'constants/route';
 import CheckAuthComponent from 'common/checkAuth/components';
+import { lazy, Suspense } from 'react';
+
+const AuthComponent = lazy(() => import('modules/auth/components'));
+const MainComponent = lazy(() => import('modules/main/components'));
 
 const RootRouter: RouteObject[] = [
 	{
 		path: `/${routeConstant.ROUTE_NAME_AUTH}/*`,
 		element: (
-			<CheckAuthComponent>
-				<AuthComponent />
-			</CheckAuthComponent>
+			<Suspense fallback={null}>
+				<CheckAuthComponent>
+					<AuthComponent />
+				</CheckAuthComponent>
+			</Suspense>
 		)
 	},
 	{
 		path: `/${routeConstant.ROUTE_NAME_MAIN}/*`,
 		element: (
-			<CheckAuthComponent>
-				<MainComponent />
-			</CheckAuthComponent>
+			<Suspense fallback={null}>
+				<CheckAuthComponent>
+					<MainComponent />
+				</CheckAuthComponent>
+			</Suspense>
 		)
 	},
 	{
