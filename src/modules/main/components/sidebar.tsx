@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import CustomLinkComponent from 'common/components/CustomLink/components';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
 import { ChartPieIcon, ChevronLeftIcon, TableIcon, CogIcon, TemplateIcon } from '@heroicons/react/outline';
 import { appSidebarRequestAction } from 'store/app/actions';
@@ -31,7 +31,7 @@ const menus = [
 		child: [
 			{
 				title: 'Themes 1',
-				href: '/main/themes-1',
+				href: '/main/posts',
 				icon: <TemplateIcon className="w-5 h-5" />
 			},
 			{
@@ -87,21 +87,21 @@ const SidebarComponent = () => {
 								{menus.map((m: any, index) =>
 									Object.keys(m).includes('href') ? (
 										<li key={index}>
-											<CustomLinkComponent
-												href={m.href}
-												className={classNames(
-													'inline-flex items-center w-full px-4 py-2 text-base transition duration-500 ease-in-out transform rounded-lg focus:shadow-outline',
-													{
-														'bg-gray-500 hover:bg-gray-500 font-bold text-white':
-															location.pathname === m.href,
-														'hover:bg-gray-900 hover:text-white text-gray-400':
-															location.pathname !== m.href
-													}
-												)}
+											<NavLink
+												to={m.href}
+												className={({ isActive }) =>
+													classNames(
+														'inline-flex items-center w-full px-4 py-2 text-base transition duration-500 ease-in-out transform rounded-lg focus:shadow-outline',
+														{
+															'bg-gray-500 hover:bg-gray-500 font-bold text-white': isActive,
+															'hover:bg-gray-900 hover:text-white text-gray-400': !isActive
+														}
+													)
+												}
 											>
 												{m.icon}
 												<span className="ml-4">{m.title}</span>
-											</CustomLinkComponent>
+											</NavLink>
 										</li>
 									) : Object.keys(m).includes('child') ? (
 										<li key={index}>
@@ -114,29 +114,31 @@ const SidebarComponent = () => {
 															{m.icon}
 															<span className="ml-4">{m.title}</span>
 															<ChevronLeftIcon
-																className={`${
-																	open ? 'transform -rotate-90' : ''
-																} w-5 h-5 ml-auto`}
+																className={classNames('w-5 h-5 ml-auto', {
+																	'transform -rotate-90': open
+																})}
 															/>
 														</Disclosure.Button>
 														<Disclosure.Panel as="ul" className="space-y-4">
 															{m.child.map((m: any, index: number) => (
 																<li key={index}>
-																	<CustomLinkComponent
-																		className={classNames(
-																			'inline-flex items-center w-full pl-8 pr-4 py-2 text-base transition duration-500 ease-in-out transform rounded-lg focus:shadow-outline',
-																			{
-																				'bg-gray-500 hover:bg-gray-500 font-bold text-white':
-																					location.pathname === m.href,
-																				'hover:bg-gray-900 hover:text-white text-gray-400':
-																					location.pathname !== m.href
-																			}
-																		)}
-																		href={m.href}
+																	<NavLink
+																		className={({ isActive }) =>
+																			classNames(
+																				'inline-flex items-center w-full pl-8 pr-4 py-2 text-base transition duration-500 ease-in-out transform rounded-lg focus:shadow-outline',
+																				{
+																					'bg-gray-500 hover:bg-gray-500 font-bold text-white':
+																						isActive,
+																					'hover:bg-gray-900 hover:text-white text-gray-400':
+																						!isActive
+																				}
+																			)
+																		}
+																		to={m.href}
 																	>
 																		{m.icon}
 																		<span className="ml-4">{m.title}</span>
-																	</CustomLinkComponent>
+																	</NavLink>
 																</li>
 															))}
 														</Disclosure.Panel>
