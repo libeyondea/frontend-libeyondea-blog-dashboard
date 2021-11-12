@@ -24,7 +24,7 @@ const AuthRouter: RouteObject[] = [
 	},
 	{
 		path: '*',
-		element: <Navigate to={`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`} />
+		element: <Navigate to={`${routeConstant.ROUTE_NAME_SPLASH}`} />
 	}
 ];
 

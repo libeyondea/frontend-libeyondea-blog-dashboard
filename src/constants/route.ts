@@ -1,3 +1,5 @@
+export const ROUTE_NAME_SPLASH = '/';
+
 export const ROUTE_NAME_AUTH = 'auth';
 export const ROUTE_NAME_AUTH_SIGNIN = 'signin';
 export const ROUTE_NAME_AUTH_SIGNUP = 'signup';

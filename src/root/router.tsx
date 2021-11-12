@@ -5,8 +5,17 @@ import { lazy, Suspense } from 'react';
 
 const AuthComponent = lazy(() => import('modules/auth/components'));
 const MainComponent = lazy(() => import('modules/main/components'));
+const SplashComponent = lazy(() => import('modules/splash/components'));
 
 const RootRouter: RouteObject[] = [
+	{
+		path: `${routeConstant.ROUTE_NAME_SPLASH}`,
+		element: (
+			<Suspense fallback={null}>
+				<SplashComponent />
+			</Suspense>
+		)
+	},
 	{
 		path: `/${routeConstant.ROUTE_NAME_AUTH}/*`,
 		element: (
@@ -29,7 +38,7 @@ const RootRouter: RouteObject[] = [
 	},
 	{
 		path: '*',
-		element: <Navigate to={`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`} />
+		element: <Navigate to={`${routeConstant.ROUTE_NAME_SPLASH}`} />
 	}
 ];
 

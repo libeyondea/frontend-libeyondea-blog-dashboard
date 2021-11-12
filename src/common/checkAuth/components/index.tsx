@@ -1,100 +1,23 @@
-import { signout } from 'helpers/auth';
-import httpRequest from 'helpers/httpRequest';
-import { getCookie } from 'helpers/cookies';
-import { useEffect, useState } from 'react';
-import { authRequestAction } from 'store/auth/actions';
-import CustomImageComponent from 'common/components/CustomImage/components';
-import config from 'config';
+import * as appStateConstant from 'constants/appState';
 import { selectAuth } from 'store/auth/selectors';
-import * as cookiesConstant from 'constants/cookies';
+import { selectAppInitialized } from 'store/app/selectors';
 import * as routeConstant from 'constants/route';
-import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import { useNavigate, useLocation } from 'react-router-dom';
-import useDidMountEffect from 'hooks/useDidMountEffect';
+import { useLocation, Navigate } from 'react-router-dom';
 
 const CheckAuthComponent = ({ children }: { children: JSX.Element }) => {
-	const navigate = useNavigate();
 	const location = useLocation();
-	const dispatch = useAppDispatch();
 	const auth = useAppSelector(selectAuth);
-	const [isLoading, setIsLoading] = useState(true);
+	const appInitialized = useAppSelector(selectAppInitialized);
 
-	const authActionData = (state: any) => dispatch(authRequestAction(state));
-
-	useDidMountEffect(() => {
-		console.log('DidMount');
-		const accessToken = getCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN);
-		const refreshToken = getCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN);
-		const initialUrl = location.pathname;
-
-		if (auth) {
-			if (initialUrl) {
-				navigate(initialUrl, { replace: true });
-			} else {
-				navigate(`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`, { replace: true });
-			}
-			setIsLoading(false);
-		} else if (accessToken) {
-			httpRequest
-				.get({
-					url: config.API.END_POINT.ME,
-					token: accessToken
-				})
-				.then((response) => {
-					if (!response.data.success) {
-						signout(navigate, auth, authActionData);
-						return;
-					}
-					authActionData({
-						tokens: {
-							accessToken,
-							refreshToken
-						},
-						user: response.data.data
-					});
-					if (initialUrl) {
-						navigate(initialUrl, { replace: true });
-					} else {
-						navigate(`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`, {
-							replace: true
-						});
-					}
-				})
-				.catch((error) => {
-					console.log(error);
-					signout(navigate, auth, authActionData);
-				})
-				.finally(() => {
-					setIsLoading(false);
-				});
-		} else {
-			authActionData(null);
-			if (initialUrl) {
-				navigate(initialUrl, { replace: true });
-			} else {
-				navigate(`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`, { replace: true });
-			}
-			setIsLoading(false);
-		}
-	});
-
-	useEffect(() => {
-		console.log('DidMountAndUpdate');
-		if (location.pathname.indexOf(routeConstant.ROUTE_NAME_AUTH) > -1 && auth) {
-			navigate(`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`, { replace: true });
-		} else if (location.pathname.indexOf(routeConstant.ROUTE_NAME_MAIN) > -1 && !auth) {
-			navigate(`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`);
-		}
-	});
-
-	return isLoading ? (
-		<div className="flex h-screen">
-			<CustomImageComponent className="m-auto animate-spin rounded-full h-32 w-32" src={config.LOGO_URL} alt="Loading..." />
-		</div>
-	) : (
-		children
-	);
+	if (location.pathname !== routeConstant.ROUTE_NAME_SPLASH && appInitialized !== appStateConstant.APP_STATE_INITIALIZED_YES) {
+		return <Navigate to={`${routeConstant.ROUTE_NAME_SPLASH}`} state={{ from: location }} />;
+	} else if (location.pathname.indexOf(routeConstant.ROUTE_NAME_AUTH) > -1 && auth) {
+		return <Navigate to={`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`} />;
+	} else if (location.pathname.indexOf(routeConstant.ROUTE_NAME_MAIN) > -1 && !auth) {
+		return <Navigate to={`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`} />;
+	}
+	return children;
 };
 
 export default CheckAuthComponent;
