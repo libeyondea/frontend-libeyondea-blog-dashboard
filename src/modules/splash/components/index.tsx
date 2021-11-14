@@ -24,7 +24,6 @@ const SplashComponent = () => {
 	const authActionData = (state: any) => dispatch(authRequestAction(state));
 
 	useDidMountEffect(() => {
-		console.log('from', location.state?.from?.pathname);
 		appInitializedActionData(appStateConstant.APP_STATE_INITIALIZED_YES);
 		const accessToken = getCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN);
 		const refreshToken = getCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN);
