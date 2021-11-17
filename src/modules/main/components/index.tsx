@@ -8,7 +8,9 @@ import * as appStateConstant from 'constants/appState';
 import useAppSelector from 'hooks/useAppSelector';
 import { useRoutes } from 'react-router-dom';
 
-const MainComponent = () => {
+type Props = {};
+
+const MainComponent: React.FC<Props> = () => {
 	const appSidebar = useAppSelector(selectAppSidebar);
 	console.log('Main');
 	return (

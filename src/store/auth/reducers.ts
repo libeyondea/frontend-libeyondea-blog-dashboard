@@ -1,9 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { authSuccessAction } from './actions';
 
-interface AuthState {
-	current: any;
-}
+type AuthState = {
+	current:
+		| {
+				tokens: any;
+				user: any;
+		  }
+		| null
+		| undefined;
+};
 
 const initialState: AuthState = {
 	current: null

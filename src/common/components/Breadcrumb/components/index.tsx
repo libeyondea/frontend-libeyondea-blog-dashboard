@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import React from 'react';
 
-const BreadcrumbComponent: React.FC<any> = ({ children, className }) => {
+type Props = {
+	children: React.ReactNode;
+	className?: string;
+};
+
+const BreadcrumbComponent: React.FC<Props> = ({ children, className }) => {
 	return (
-		<div
-			className={classNames('flex', {
-				[className]: className
-			})}
-		>
+		<div className={classNames('flex', className)}>
 			<h3 className="text-2xl font-bold">{children}</h3>
 		</div>
 	);

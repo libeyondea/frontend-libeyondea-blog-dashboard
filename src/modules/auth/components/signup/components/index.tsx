@@ -1,4 +1,6 @@
-const SignupComponent: React.FC<any> = () => {
+type Props = {};
+
+const SignupComponent: React.FC<Props> = () => {
 	return <div>Signup</div>;
 };
 

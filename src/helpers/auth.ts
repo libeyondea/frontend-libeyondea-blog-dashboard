@@ -5,7 +5,7 @@ import * as routeConstant from 'constants/route';
 import config from 'config';
 import { NavigateFunction } from 'react-router-dom';
 
-export const signout = (navigate: NavigateFunction, auth: any, authActionData: any) => {
+export const signout = (navigate: NavigateFunction, auth: any, authActionData: any): void => {
 	if (auth) {
 		httpRequest.post({
 			url: config.API.END_POINT.SIGNOUT,

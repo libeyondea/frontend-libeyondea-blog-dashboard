@@ -9,7 +9,9 @@ import config from 'config';
 import { useNavigate } from 'react-router-dom';
 import CustomLinkComponent from 'common/components/CustomLink/components';
 
-const SigninCompoment: React.FC<any> = () => {
+type Props = {};
+
+const SigninCompoment: React.FC<Props> = () => {
 	const navigate = useNavigate();
 
 	const formik = useFormik({

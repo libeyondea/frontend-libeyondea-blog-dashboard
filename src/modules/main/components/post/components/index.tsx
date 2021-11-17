@@ -1,7 +1,9 @@
 import BreadcrumbComponent from 'common/components/Breadcrumb/components';
 import CardComponent from 'common/components/Card/components';
 
-const PostComponent = () => {
+type Props = {};
+
+const PostComponent: React.FC<Props> = () => {
 	return (
 		<>
 			<BreadcrumbComponent className="mb-4">Posts</BreadcrumbComponent>

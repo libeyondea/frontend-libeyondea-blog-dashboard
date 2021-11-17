@@ -14,7 +14,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import useDidMountEffect from 'hooks/useDidMountEffect';
 import { signout } from 'helpers/auth';
 
-const SplashComponent = () => {
+type Props = {};
+
+const SplashComponent: React.FC<Props> = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const dispatch = useAppDispatch();

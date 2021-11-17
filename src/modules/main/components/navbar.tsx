@@ -14,7 +14,9 @@ import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 
-const NavbarComponent = () => {
+type Props = {};
+
+const NavbarComponent: React.FC<Props> = () => {
 	const dispatch = useAppDispatch();
 	const appSidebar = useAppSelector(selectAppSidebar);
 	const auth = useAppSelector(selectAuth);

@@ -6,7 +6,9 @@ import { selectAppSidebar } from 'store/app/selectors';
 import * as appStateConstant from 'constants/appState';
 import useAppSelector from 'hooks/useAppSelector';
 
-const FooterComponent = () => {
+type Props = {};
+
+const FooterComponent: React.FC<Props> = () => {
 	const appSidebar = useAppSelector(selectAppSidebar);
 
 	return (

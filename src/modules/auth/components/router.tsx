@@ -1,6 +1,8 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import * as routeConstant from 'constants/route';
 import { lazy, Suspense } from 'react';
+
+import type { RouteObject } from 'react-router-dom';
 
 const SigninCompoment = lazy(() => import('./signin/components'));
 const SignupComponent = lazy(() => import('./signup/components'));

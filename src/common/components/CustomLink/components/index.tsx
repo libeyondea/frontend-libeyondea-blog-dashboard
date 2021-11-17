@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const CustomLinkComponent: React.FC<any> = ({ className, href, children, ...props }) => (
+type Props = {
+	href: string;
+	children: React.ReactNode;
+	className?: string;
+};
+
+const CustomLinkComponent: React.FC<Props> = ({ className, href, children, ...props }) => (
 	<Link to={href} className={className} {...props}>
 		{children}
 	</Link>

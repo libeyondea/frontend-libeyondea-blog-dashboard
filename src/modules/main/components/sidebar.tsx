@@ -11,6 +11,8 @@ import * as appStateConstant from 'constants/appState';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 
+type Props = {};
+
 const menus = [
 	{
 		title: 'Dashboard',
@@ -43,7 +45,7 @@ const menus = [
 	}
 ];
 
-const SidebarComponent = () => {
+const SidebarComponent: React.FC<Props> = () => {
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 	const appSidebar = useAppSelector(selectAppSidebar);

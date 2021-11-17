@@ -5,7 +5,11 @@ import * as routeConstant from 'constants/route';
 import useAppSelector from 'hooks/useAppSelector';
 import { useLocation, Navigate } from 'react-router-dom';
 
-const CheckAuthComponent = ({ children }: { children: JSX.Element }) => {
+type Props = {
+	children: JSX.Element;
+};
+
+const CheckAuthComponent: React.FC<Props> = ({ children }) => {
 	const location = useLocation();
 	const auth = useAppSelector(selectAuth);
 	const appInitialized = useAppSelector(selectAppInitialized);
