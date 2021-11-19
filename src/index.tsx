@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from 'store';
 import Root from './root';
 import reportWebVitals from './reportWebVitals';
+import 'styles/index.scss';
 
 ReactDOM.render(
 	<React.StrictMode>
