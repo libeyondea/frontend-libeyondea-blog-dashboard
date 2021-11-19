@@ -6,10 +6,10 @@ type Props = {
 	className?: string;
 };
 
-const CustomLinkComponent: React.FC<Props> = ({ className, href, children, ...props }) => (
+const LinkComponent: React.FC<Props> = ({ className, href, children, ...props }) => (
 	<Link to={href} className={className} {...props}>
 		{children}
 	</Link>
 );
 
-export default CustomLinkComponent;
+export default LinkComponent;

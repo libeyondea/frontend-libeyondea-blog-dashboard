@@ -2,7 +2,7 @@ import httpRequest from 'helpers/httpRequest';
 import { getCookie } from 'helpers/cookies';
 import { appInitializedRequestAction } from 'store/app/actions';
 import { authRequestAction } from 'store/auth/actions';
-import CustomImageComponent from 'common/components/CustomImage/components';
+import ImageComponent from 'common/components/Image/components';
 import config from 'config';
 import { selectAuth } from 'store/auth/selectors';
 import * as appStateConstant from 'constants/appState';
@@ -79,7 +79,7 @@ const SplashComponent: React.FC<Props> = () => {
 
 	return (
 		<div className="flex h-screen">
-			<CustomImageComponent className="m-auto animate-spin rounded-full h-32 w-32" src={config.LOGO_URL} alt="Loading..." />
+			<ImageComponent className="m-auto animate-spin rounded-full h-32 w-32" src={config.LOGO_URL} alt="Loading..." />
 		</div>
 	);
 };

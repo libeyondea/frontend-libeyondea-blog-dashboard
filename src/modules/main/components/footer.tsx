@@ -1,5 +1,5 @@
 import moment from 'moment';
-import CustomImageComponent from 'common/components/CustomImage/components';
+import ImageComponent from 'common/components/Image/components';
 import config from 'config';
 import classNames from 'classnames';
 import { selectAppSidebar } from 'store/app/selectors';
@@ -20,7 +20,7 @@ const FooterComponent: React.FC<Props> = () => {
 		>
 			<div className="xl:container mx-auto px-4">
 				<div className="flex justify-center items-center">
-					<CustomImageComponent className="rounded-full h-9 w-9 mr-2" src={config.LOGO_URL} alt={config.APP_NAME} />
+					<ImageComponent className="rounded-full h-9 w-9 mr-2" src={config.LOGO_URL} alt={config.APP_NAME} />
 					<small>
 						Copyright &copy; {moment().year()}
 						<a

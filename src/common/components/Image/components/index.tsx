@@ -4,8 +4,8 @@ type Props = {
 	className?: string;
 };
 
-const CustomImageComponent: React.FC<Props> = ({ src, alt, className, ...props }) => (
+const ImageComponent: React.FC<Props> = ({ src, alt, className, ...props }) => (
 	<img {...props} src={src} alt={alt} className={className} />
 );
 
-export default CustomImageComponent;
+export default ImageComponent;
