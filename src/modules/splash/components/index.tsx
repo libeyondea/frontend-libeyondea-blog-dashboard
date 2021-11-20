@@ -22,11 +22,11 @@ const SplashComponent: React.FC<Props> = () => {
 	const dispatch = useAppDispatch();
 	const auth = useAppSelector(selectAuth);
 
-	const appInitializedActionData = (state: any) => dispatch(appInitializedRequestAction(state));
-	const authActionData = (state: any) => dispatch(authRequestAction(state));
+	const changeAppInitialized = (state: any) => dispatch(appInitializedRequestAction(state));
+	const changeAuth = (state: any) => dispatch(authRequestAction(state));
 
 	useDidMountEffect(() => {
-		appInitializedActionData(appStateConstant.APP_STATE_INITIALIZED_YES);
+		changeAppInitialized(appStateConstant.APP_STATE_INITIALIZED_YES);
 		const accessToken = getCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN);
 		const refreshToken = getCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN);
 		const initialUrl = location.state?.from?.pathname;
@@ -45,10 +45,10 @@ const SplashComponent: React.FC<Props> = () => {
 				})
 				.then((response) => {
 					if (!response.data.success) {
-						signout(navigate, auth, authActionData);
+						signout(navigate, auth, changeAuth);
 						return;
 					}
-					authActionData({
+					changeAuth({
 						tokens: {
 							accessToken,
 							refreshToken
@@ -65,10 +65,10 @@ const SplashComponent: React.FC<Props> = () => {
 				})
 				.catch((error) => {
 					console.log(error);
-					signout(navigate, auth, authActionData);
+					signout(navigate, auth, changeAuth);
 				});
 		} else {
-			authActionData(null);
+			changeAuth(null);
 			if (initialUrl) {
 				navigate(initialUrl, { replace: true });
 			} else {

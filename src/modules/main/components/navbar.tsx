@@ -17,30 +17,19 @@ import { useNavigate } from 'react-router-dom';
 type Props = {};
 
 const NavbarComponent: React.FC<Props> = () => {
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const appSidebar = useAppSelector(selectAppSidebar);
 	const auth = useAppSelector(selectAuth);
-	const navigate = useNavigate();
-	const appSidebarActionData = (state: any) => dispatch(appSidebarRequestAction(state));
-	const authActionData = (state: any) => dispatch(authRequestAction(state));
 
-	const logoutHandler = () => {
-		signout(navigate, auth, authActionData);
-	};
-
-	const changeSidebar = () => {
-		appSidebarActionData(
-			appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES
-				? appStateConstant.APP_STATE_SIDEBAR_NO
-				: appStateConstant.APP_STATE_SIDEBAR_YES
-		);
-	};
+	const changeAppSidebar = (state: any) => dispatch(appSidebarRequestAction(state));
+	const changeAuth = (state: any) => dispatch(authRequestAction(state));
 
 	return (
 		<nav
 			className={classNames('bg-white shadow-lg fixed z-20 inset-x-0 top-0 transition-all ease-in-out duration-500', {
 				'lg:ml-64': appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES,
-				'ml-0': appSidebar === appStateConstant.APP_STATE_SIDEBAR_NO
+				'ml-0': appSidebar !== appStateConstant.APP_STATE_SIDEBAR_YES
 			})}
 		>
 			<div className="xl:container mx-auto px-4">
@@ -48,7 +37,13 @@ const NavbarComponent: React.FC<Props> = () => {
 					<div className="flex items-center mr-auto">
 						<button
 							className="text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
-							onClick={changeSidebar}
+							onClick={() =>
+								changeAppSidebar(
+									appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES
+										? appStateConstant.APP_STATE_SIDEBAR_NO
+										: appStateConstant.APP_STATE_SIDEBAR_YES
+								)
+							}
 						>
 							<MenuIcon className="h-6 w-6" />
 						</button>
@@ -110,7 +105,7 @@ const NavbarComponent: React.FC<Props> = () => {
 																'text-gray-900': !active
 															}
 														)}
-														onClick={logoutHandler}
+														onClick={() => signout(navigate, auth, changeAuth)}
 													>
 														<span>Logout</span>
 													</button>

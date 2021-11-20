@@ -21,23 +21,23 @@ const SidebarComponent: React.FC<Props> = () => {
 	const dispatch = useAppDispatch();
 	const appSidebar = useAppSelector(selectAppSidebar);
 
-	const appSidebarActionData = (state: any) => dispatch(appSidebarRequestAction(state));
+	const changeAppSidebar = (state: any) => dispatch(appSidebarRequestAction(state));
 
 	return (
 		<div className="flex">
 			<div
 				className={classNames('fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden', {
 					hidden: appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES,
-					block: appSidebar === appStateConstant.APP_STATE_SIDEBAR_NO
+					block: appSidebar !== appStateConstant.APP_STATE_SIDEBAR_YES
 				})}
-				onClick={() => appSidebarActionData(appStateConstant.APP_STATE_SIDEBAR_YES)}
+				onClick={() => changeAppSidebar(appStateConstant.APP_STATE_SIDEBAR_YES)}
 			></div>
 			<div
 				className={classNames(
 					'fixed inset-y-0 left-0 max-w-full flex transition-all ease-in-out duration-500 flex-shrink-0 z-30 shadow-xl',
 					{
 						'-ml-64 lg:ml-0': appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES,
-						'ml-0 lg:-ml-64': appSidebar === appStateConstant.APP_STATE_SIDEBAR_NO
+						'ml-0 lg:-ml-64': appSidebar !== appStateConstant.APP_STATE_SIDEBAR_YES
 					}
 				)}
 			>

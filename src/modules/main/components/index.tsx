@@ -13,14 +13,15 @@ type Props = {};
 const MainComponent: React.FC<Props> = () => {
 	const appSidebar = useAppSelector(selectAppSidebar);
 	console.log('Main');
+
 	return (
-		<div className="bg-gray-100">
+		<div>
 			<NavbarComponent />
 			<SidebarComponent />
 			<div
 				className={classNames('mt-14 transition-all ease-in-out duration-500', {
 					'lg:ml-64': appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES,
-					'ml-0': appSidebar === appStateConstant.APP_STATE_SIDEBAR_NO
+					'ml-0': appSidebar !== appStateConstant.APP_STATE_SIDEBAR_YES
 				})}
 			>
 				<div className="xl:container mx-auto p-4">{useRoutes(MainRouter)}</div>
