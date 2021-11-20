@@ -3,17 +3,17 @@ import CardComponent from 'common/components/Card/components';
 
 type Props = {};
 
-const PostComponent: React.FC<Props> = () => {
+const SettingComponent: React.FC<Props> = () => {
 	return (
 		<>
-			<BreadcrumbComponent className="mb-4">Posts</BreadcrumbComponent>
+			<BreadcrumbComponent className="mb-4">Settings</BreadcrumbComponent>
 			<div className="grid grid-cols-1 gap-4">
 				<div className="col-span-1 w-full">
-					<CardComponent>Posts</CardComponent>
+					<CardComponent>Settings</CardComponent>
 				</div>
 			</div>
 		</>
 	);
 };
 
-export default PostComponent;
+export default SettingComponent;

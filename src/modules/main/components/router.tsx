@@ -6,6 +6,7 @@ import type { RouteObject } from 'react-router-dom';
 
 const DashboardComponent = lazy(() => import('./dashboard/components'));
 const PostComponent = lazy(() => import('./post/components'));
+const SettingComponent = lazy(() => import('./setting/components'));
 
 const MainRouter: RouteObject[] = [
 	{
@@ -17,10 +18,18 @@ const MainRouter: RouteObject[] = [
 		)
 	},
 	{
-		path: `posts`,
+		path: `${routeConstant.ROUTE_NAME_MAIN_POST}`,
 		element: (
 			<Suspense fallback={null}>
 				<PostComponent />
+			</Suspense>
+		)
+	},
+	{
+		path: `${routeConstant.ROUTE_NAME_MAIN_SETTING}`,
+		element: (
+			<Suspense fallback={null}>
+				<SettingComponent />
 			</Suspense>
 		)
 	},
