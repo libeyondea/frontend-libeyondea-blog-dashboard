@@ -6,7 +6,8 @@ const config = {
 	},
 	API: {
 		URL: {
-			ROOT_URL: process.env.REACT_APP_API_URL
+			ROOT_URL: process.env.REACT_APP_ROOT_URL,
+			API_URL: process.env.REACT_APP_API_URL
 		},
 		END_POINT: {
 			SIGNIN: '/auth/signin',

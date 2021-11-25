@@ -66,8 +66,8 @@ const NavbarComponent: React.FC<Props> = () => {
 										<Menu.Button className="flex items-center justify-center w-full rounded-md px-2 py-1 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-500 focus:outline-none">
 											<ImageComponent
 												className="rounded-full h-8 w-8"
-												src={auth?.user?.avatarUrl}
-												alt={auth?.user?.userName}
+												src={auth?.user?.avatar}
+												alt={auth?.user?.user_name}
 											/>
 										</Menu.Button>
 									</div>

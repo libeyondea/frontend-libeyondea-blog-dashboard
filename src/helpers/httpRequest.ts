@@ -2,7 +2,17 @@ import axios, { AxiosPromise } from 'axios';
 import config from 'config';
 
 const httpRequest = {
-	get: ({ baseUrl = config.API.URL.ROOT_URL, url, token, params }: any): AxiosPromise<any> => {
+	get: ({
+		baseUrl = config.API.URL.API_URL,
+		url,
+		token,
+		params
+	}: {
+		baseUrl?: string | undefined;
+		url: string;
+		token?: string;
+		params?: any;
+	}): AxiosPromise<any> => {
 		return axios({
 			timeout: config.REQUEST.TIMEOUT,
 			method: 'get',
@@ -16,7 +26,17 @@ const httpRequest = {
 			params: params
 		});
 	},
-	post: ({ baseUrl = config.API.URL.ROOT_URL, url, token, data }: any): AxiosPromise<any> => {
+	post: ({
+		baseUrl = config.API.URL.API_URL,
+		url,
+		token,
+		data
+	}: {
+		baseUrl?: string | undefined;
+		url: string;
+		token?: string;
+		data?: any;
+	}): AxiosPromise<any> => {
 		return axios({
 			timeout: config.REQUEST.TIMEOUT,
 			method: 'post',
@@ -30,7 +50,17 @@ const httpRequest = {
 			data: data
 		});
 	},
-	put: ({ baseUrl = config.API.URL.ROOT_URL, url, token, data }: any): AxiosPromise<any> => {
+	put: ({
+		baseUrl = config.API.URL.API_URL,
+		url,
+		token,
+		data
+	}: {
+		baseUrl?: string | undefined;
+		url: string;
+		token?: string;
+		data?: any;
+	}): AxiosPromise<any> => {
 		return axios({
 			timeout: config.REQUEST.TIMEOUT,
 			method: 'put',
@@ -44,7 +74,17 @@ const httpRequest = {
 			data: data
 		});
 	},
-	delete: ({ baseUrl = config.API.URL.ROOT_URL, url, token, params }: any): AxiosPromise<any> => {
+	delete: ({
+		baseUrl = config.API.URL.API_URL,
+		url,
+		token,
+		params
+	}: {
+		baseUrl?: string | undefined;
+		url: string;
+		token?: string;
+		params?: any;
+	}): AxiosPromise<any> => {
 		return axios({
 			timeout: config.REQUEST.TIMEOUT,
 			method: 'delete',
@@ -58,7 +98,19 @@ const httpRequest = {
 			params: params
 		});
 	},
-	upload: ({ baseUrl = config.API.URL.ROOT_URL, url, token, data, files }: any): AxiosPromise<any> => {
+	upload: ({
+		baseUrl = config.API.URL.API_URL,
+		url,
+		token,
+		data,
+		files
+	}: {
+		baseUrl?: string | undefined;
+		url: string;
+		token?: string;
+		data?: any;
+		files?: any;
+	}): AxiosPromise<any> => {
 		const formData = new FormData();
 		if (data) {
 			for (let field in data) {

@@ -28,7 +28,6 @@ const SplashComponent: React.FC<Props> = () => {
 	useDidMountEffect(() => {
 		changeAppInitialized(appStateConstant.APP_STATE_INITIALIZED_YES);
 		const accessToken = getCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN);
-		const refreshToken = getCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN);
 		const initialUrl = location.state?.from?.pathname;
 
 		if (auth) {
@@ -50,8 +49,9 @@ const SplashComponent: React.FC<Props> = () => {
 					}
 					changeAuth({
 						tokens: {
-							accessToken,
-							refreshToken
+							access_token: {
+								token: accessToken
+							}
 						},
 						user: response.data.data
 					});

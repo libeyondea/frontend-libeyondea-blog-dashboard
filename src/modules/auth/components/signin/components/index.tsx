@@ -18,11 +18,11 @@ const SigninCompoment: React.FC<Props> = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			userName: '',
+			user_name: '',
 			password: ''
 		},
 		validationSchema: Yup.object({
-			userName: Yup.string().required('User name is required'),
+			user_name: Yup.string().required('User name is required'),
 			password: Yup.string().required('Password is required')
 		}),
 		onSubmit: (values, { setSubmitting, setErrors }) => {
@@ -30,16 +30,13 @@ const SigninCompoment: React.FC<Props> = () => {
 				.post({
 					url: config.API.END_POINT.SIGNIN,
 					data: {
-						userName: values.userName,
+						user_name: values.user_name,
 						password: values.password
 					}
 				})
 				.then((response) => {
 					if (response.data.success) {
-						setCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN, response.data.data.tokens.accessToken.token, {
-							expires: config.AUTH_DATA.EXPIRED_TIME
-						});
-						setCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN, response.data.data.tokens.refreshToken.token, {
+						setCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN, response.data.data.tokens.access_token.token, {
 							expires: config.AUTH_DATA.EXPIRED_TIME
 						});
 						navigate(routeConstant.ROUTE_NAME_SPLASH);
@@ -47,10 +44,12 @@ const SigninCompoment: React.FC<Props> = () => {
 				})
 				.catch((error) => {
 					console.log(error.response);
-					setErrors({
-						userName: error?.response?.data?.errors[0]?.message,
-						password: error?.response?.data?.errors[0]?.message
-					});
+					if (error.response.status === 400) {
+						setErrors({
+							user_name: error?.response?.data?.message,
+							password: error?.response?.data?.message
+						});
+					}
 				})
 				.finally(() => {
 					setSubmitting(false);
@@ -72,18 +71,18 @@ const SigninCompoment: React.FC<Props> = () => {
 							className={classNames(
 								'rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent',
 								{
-									'is-invalid': formik.errors.userName && formik.touched.userName
+									'is-invalid': formik.errors.user_name && formik.touched.user_name
 								}
 							)}
 							onChange={formik.handleChange}
 							onBlur={formik.handleBlur}
-							value={formik.values.userName}
-							name="userName"
-							id="userName"
+							value={formik.values.user_name}
+							name="user_name"
+							id="user_name"
 						/>
 					</div>
-					{formik.errors.userName && formik.touched.userName && (
-						<div className="text-red-700 mt-1">{formik.errors.userName}</div>
+					{formik.errors.user_name && formik.touched.user_name && (
+						<div className="text-red-700 mt-1">{formik.errors.user_name}</div>
 					)}
 				</div>
 				<div className="flex flex-col mb-6">

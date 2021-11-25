@@ -9,13 +9,10 @@ export const signout = (navigate: NavigateFunction, auth: any, changeAuth: any):
 	if (auth) {
 		httpRequest.post({
 			url: config.API.END_POINT.SIGNOUT,
-			data: {
-				refreshToken: auth.tokens.refreshToken
-			}
+			token: auth.tokens.access_token.token
 		});
 	}
 	removeCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN);
-	removeCookie(cookiesConstant.COOKIES_KEY_REFRESH_TOKEN);
 	changeAuth(null);
 	navigate(`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`);
 };
