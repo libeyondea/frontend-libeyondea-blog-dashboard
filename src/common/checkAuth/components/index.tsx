@@ -19,7 +19,12 @@ const CheckAuthComponent: React.FC<Props> = ({ children }) => {
 	} else if (location.pathname.indexOf(routeConstant.ROUTE_NAME_AUTH) > -1 && auth) {
 		return <Navigate to={`/${routeConstant.ROUTE_NAME_MAIN}/${routeConstant.ROUTE_NAME_MAIN_DASHBOARD}`} />;
 	} else if (location.pathname.indexOf(routeConstant.ROUTE_NAME_MAIN) > -1 && !auth) {
-		return <Navigate to={`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`} />;
+		return (
+			<Navigate
+				to={`/${routeConstant.ROUTE_NAME_AUTH}/${routeConstant.ROUTE_NAME_AUTH_SIGNIN}`}
+				state={{ from: location }}
+			/>
+		);
 	}
 	return children;
 };

@@ -7,7 +7,7 @@ import CardComponent from 'common/components/Card/components';
 import * as cookiesConstant from 'constants/cookies';
 import * as routeConstant from 'constants/route';
 import config from 'config';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import LinkComponent from 'common/components/Link/components';
 import { LockOpenIcon, UserIcon } from '@heroicons/react/outline';
 
@@ -15,6 +15,7 @@ type Props = {};
 
 const SigninCompoment: React.FC<Props> = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const formik = useFormik({
 		initialValues: {
@@ -39,15 +40,15 @@ const SigninCompoment: React.FC<Props> = () => {
 						setCookie(cookiesConstant.COOKIES_KEY_ACCESS_TOKEN, response.data.data.tokens.access_token.token, {
 							expires: config.AUTH_DATA.EXPIRED_TIME
 						});
-						navigate(routeConstant.ROUTE_NAME_SPLASH);
+						navigate(routeConstant.ROUTE_NAME_SPLASH, { state: { from: location.state?.from } });
 					}
 				})
 				.catch((error) => {
 					console.log(error.response);
-					if (error.response.status === 400) {
+					if (error.response?.status === 400) {
 						setErrors({
-							user_name: error?.response?.data?.message,
-							password: error?.response?.data?.message
+							user_name: error.response?.data?.message,
+							password: error.response?.data?.message
 						});
 					}
 				})
