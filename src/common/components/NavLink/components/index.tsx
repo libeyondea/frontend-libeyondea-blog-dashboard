@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 type Props = {
 	href: string;
 	children: React.ReactNode;
-	className: string;
+	className?: string;
 	activeClassName: string;
 	notActiveClassName?: string;
 };

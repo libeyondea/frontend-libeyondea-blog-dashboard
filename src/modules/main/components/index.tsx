@@ -1,6 +1,5 @@
 import NavbarComponent from './navbar';
 import SidebarComponent from './sidebar';
-import FooterComponent from './footer';
 import MainRouter from './router';
 import classNames from 'classnames';
 import { selectAppSidebar } from 'store/app/selectors';
@@ -15,18 +14,16 @@ const MainComponent: React.FC<Props> = () => {
 	console.log('Main');
 
 	return (
-		<div>
+		<div
+			className={classNames({
+				'sidebar-collapse': appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES
+			})}
+		>
 			<NavbarComponent />
 			<SidebarComponent />
-			<div
-				className={classNames('mt-14 transition-all ease-in-out duration-500', {
-					'lg:ml-64': appSidebar === appStateConstant.APP_STATE_SIDEBAR_YES,
-					'ml-0': appSidebar !== appStateConstant.APP_STATE_SIDEBAR_YES
-				})}
-			>
+			<div className="main mt-14 transition-all ease-in-out duration-500">
 				<div className="xl:container mx-auto p-4">{useRoutes(MainRouter)}</div>
 			</div>
-			<FooterComponent />
 		</div>
 	);
 };
